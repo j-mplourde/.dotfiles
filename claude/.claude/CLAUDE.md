@@ -1,13 +1,14 @@
 # Development Guidelines for Claude
 
-> **About this file (v3.0.0):** Lean version optimized for context efficiency. Core principles here; detailed patterns loaded on-demand via skills.
+> **About this file (v3.1.0):** Integration of Python/Django directives
 >
 > **Architecture:**
 > - **CLAUDE.md** (this file): Core philosophy + quick reference (~100 lines, always loaded)
-> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, mutation-testing, test-design-reviewer, typescript-strict, functional, refactoring, expectations, planning, front-end-testing, react-testing)
+> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, mutation-testing, test-design-reviewer, typescript-strict, functional, refactoring, expectations, planning, front-end-testing, react-testing, python-testing, django-testing, python-formatting)
 > - **Agents**: Specialized subprocesses for verification and analysis
 >
 > **Previous versions:**
+> - v3.0.0: Lean version optimized for context efficiency. Core principles here; detailed patterns loaded on-demand via skills
 > - v2.0.0: Modular with @docs/ imports (~3000+ lines always loaded)
 > - v1.0.0: Single monolithic file (1,818 lines)
 
@@ -31,8 +32,8 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 
 **Preferred Tools:**
 
-- **Language**: TypeScript (strict mode)
-- **Testing**: Jest/Vitest + React Testing Library
+- **Language**: Python/Django, TypeScript (strict mode)
+- **Testing**: Python's unittest, Jest/Vitest + React Testing Library
 - **State Management**: Prefer immutable patterns
 
 ## Testing Principles
@@ -49,6 +50,14 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 For detailed testing patterns and examples, load the `testing` skill.
 For verifying test effectiveness through mutation analysis, load the `mutation-testing` skill.
 
+## Python Guidelines
+
+**Core principle**: Always follow the [Zen of Python]
+
+### Code Style
+
+Follow Black library formatting
+
 ## TypeScript Guidelines
 
 **Core principle**: Strict mode always. Schema-first at trust boundaries, types for internal logic.
@@ -63,7 +72,7 @@ For verifying test effectiveness through mutation analysis, load the `mutation-t
 
 For detailed TypeScript patterns and rationale, load the `typescript-strict` skill.
 
-## Code Style
+### Code Style
 
 **Core principle**: Functional programming with immutable data. Self-documenting code.
 
@@ -130,3 +139,7 @@ Run `agent-browser --help` for all commands.
 ## Summary
 
 The key is to write clean, testable, functional code that evolves through small, safe increments. Every change should be driven by a test that describes the desired behavior, and the implementation should be the simplest thing that makes that test pass. When in doubt, favor simplicity and readability over cleverness.
+
+[Zen of Python]: https://peps.python.org/pep-0020/
+
+@RTK.md
