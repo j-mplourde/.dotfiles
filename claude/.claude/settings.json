@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "deny": [
+      "Read(.ssh/**)",
+      "Read(.env*)"
+    ]
+  },
   "model": "opus[1m]",
   "hooks": {
     "PostToolUse": [
@@ -23,7 +29,16 @@
     "hookify@claude-code-plugins": true,
     "learning-output-style@claude-code-plugins": true,
     "plugin-dev@claude-code-plugins": true,
-    "security-guidance@claude-code-plugins": true
+    "security-guidance@claude-code-plugins": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
   },
   "alwaysThinkingEnabled": true
 }
