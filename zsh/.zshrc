@@ -87,6 +87,7 @@ claude-init() {
   for item in hooks skills CLAUDE.md plugins; do
     ln -sfn "$HOME/.claude/$item" "$target/$item"
   done
+  ls -lisa "$target"
 }
 
 export NVM_DIR="$HOME/.nvm"
