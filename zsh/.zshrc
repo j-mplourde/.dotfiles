@@ -68,6 +68,27 @@ hcat() {
   xdg-open "https://http.cat/$1"
 }
 
+claude-tlm() {
+  printf '/color green\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-tlm" claude --name tlm "$@"
+}
+
+claude-immervision() {
+  printf '/color orange\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-immervision" claude --name immervision "$@"
+}
+
+claude-init() {
+  local name="$1"
+  if [[ -z "$name" ]]; then
+    echo "usage: claude-init <name>" >&2
+    return 1
+  fi
+  local target="$HOME/.claude-$name"
+  mkdir -p "$target"
+  for item in hooks skills CLAUDE.md plugins; do
+    ln -sfn "$HOME/.claude/$item" "$target/$item"
+  done
+}
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
