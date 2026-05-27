@@ -4,7 +4,7 @@
 >
 > **Architecture:**
 > - **CLAUDE.md** (this file): Core philosophy + quick reference (~100 lines, always loaded)
-> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, mutation-testing, test-design-reviewer, typescript-strict, functional, refactoring, expectations, planning, front-end-testing, react-testing, python-testing, django-testing, python-formatting)
+> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, mutation-testing, test-design-reviewer, typescript-strict, functional, refactoring, expectations, planning, front-end-testing, react-testing, python-testing, django-testing, python-formatting, cpp-coding-standards)
 > - **Agents**: Specialized subprocesses for verification and analysis
 >
 > **Previous versions:**
@@ -57,6 +57,12 @@ For verifying test effectiveness through mutation analysis, load the `mutation-t
 ### Code Style
 
 Follow Black library formatting
+
+## C++ Guidelines
+
+**Core principle**: Modern C++ (C++17/20/23) with type safety, resource safety, and immutability, per the C++ Core Guidelines.
+
+For detailed C++ patterns and rationale, load the `cpp-coding-standards` skill.
 
 ## TypeScript Guidelines
 
