@@ -68,11 +68,32 @@ hcat() {
   xdg-open "https://http.cat/$1"
 }
 
+# Per-account Claude config dirs share these items from the central, versioned ~/.claude
+_claude_shared_items=(skills agents plugins CLAUDE.md)
+
+# Point ~/.claude-<dir>'s shared items at the central ~/.claude (idempotent).
+# An existing real file/dir is backed up rather than overwritten.
+claude-link() {
+  local target="$1"
+  mkdir -p "$target"
+  local item src dst
+  for item in "${_claude_shared_items[@]}"; do
+    src="$HOME/.claude/$item"
+    dst="$target/$item"
+    [[ -e "$src" ]] || continue
+    [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]] && continue
+    [[ -e "$dst" && ! -L "$dst" ]] && mv "$dst" "$dst.bak.$(date +%s)"
+    ln -sfn "$src" "$dst"
+  done
+}
+
 claude-tlm() {
+  claude-link "$HOME/.claude-tlm"
   printf '/color green\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-tlm" claude --name tlm "$@"
 }
 
 claude-immervision() {
+  claude-link "$HOME/.claude-immervision"
   printf '/color orange\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-immervision" claude --name immervision "$@"
 }
 
@@ -82,12 +103,8 @@ claude-init() {
     echo "usage: claude-init <name>" >&2
     return 1
   fi
-  local target="$HOME/.claude-$name"
-  mkdir -p "$target"
-  for item in hooks skills CLAUDE.md plugins; do
-    ln -sfn "$HOME/.claude/$item" "$target/$item"
-  done
-  ls -lisa "$target"
+  claude-link "$HOME/.claude-$name"
+  ls -la "$HOME/.claude-$name"
 }
 
 export NVM_DIR="$HOME/.nvm"
