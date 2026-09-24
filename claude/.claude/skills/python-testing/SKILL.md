@@ -5,7 +5,7 @@ description: Python Testing Library patterns for testing Python code. Use when t
 
 # Python Testing Library
 
-This skill focuses on Python-specific testing patterns. For Django testing, load the `django-testing` skill. For TDD workflow, load the `tdd` skill.
+This skill focuses on Python-specific testing patterns. For TDD workflow, load the `tdd` skill.
 
 ---
 

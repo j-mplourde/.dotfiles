@@ -1,154 +1,81 @@
 # Development Guidelines for Claude
 
-> **About this file (v3.1.0):** Integration of Python/Django directives
->
-> **Architecture:**
-> - **CLAUDE.md** (this file): Core philosophy + quick reference (~100 lines, always loaded)
-> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, mutation-testing, test-design-reviewer, typescript-strict, functional, refactoring, expectations, planning, front-end-testing, react-testing, python-testing, django-testing, python-formatting, cpp-coding-standards)
-> - **Agents**: Specialized subprocesses for verification and analysis
->
-> **Previous versions:**
-> - v3.0.0: Lean version optimized for context efficiency. Core principles here; detailed patterns loaded on-demand via skills
-> - v2.0.0: Modular with @docs/ imports (~3000+ lines always loaded)
-> - v1.0.0: Single monolithic file (1,818 lines)
+> v4.0.0 — Posture only. Language-specific patterns live in skills and load on demand.
 
 ## Core Philosophy
 
-**TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every single line of production code must be written in response to a failing test. No exceptions. This is not a suggestion or a preference - it is the fundamental practice that enables all other principles in this document.
+**TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every line of production code is written in
+response to a failing test. No exceptions. This is not a preference — it is the practice that
+makes every other rule here enforceable.
 
-I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven testing and functional programming principles. All work should be done in small, incremental changes that maintain a working state throughout development.
+Work proceeds in small increments, each leaving the codebase in a working state.
 
-## Quick Reference
+## The Loop
 
-**Key Principles:**
+- **RED** — write a failing test that states a behavior. No production code before it fails.
+- **GREEN** — write the minimum code that passes. Nothing more.
+- **REFACTOR** — assess. Refactor only when it adds value; "no change" is a valid outcome.
 
-- Write tests first (TDD)
-- Test behavior, not implementation
-- No `any` types or type assertions
-- Immutable data only
-- Small, pure functions
-- TypeScript strict mode always
-- Use real schemas/types in tests, never redefine them
+Never commit without my approval. Ask, every time.
 
-**Preferred Tools:**
+## Testing
 
-- **Language**: Python/Django, TypeScript (strict mode)
-- **Testing**: Python's unittest, Jest/Vitest + React Testing Library
-- **State Management**: Prefer immutable patterns
+Test behavior, not implementation. Full coverage *through* business behavior, never by reaching
+for internals.
 
-## Testing Principles
+- Exercise the public API exclusively. If a behavior is unreachable from outside, question why it exists.
+- Build test data with factory functions taking overrides — not mutable fixtures reassigned in setup hooks.
+- Use the real types and schemas the production code uses. Never redefine a shape inside a test.
+- A test name states the expected business behavior, not the function it calls.
+- No 1:1 mapping between test files and source files. Organize tests by behavior.
 
-**Core principle**: Test behavior, not implementation. 100% coverage through business behavior.
+## Code
 
-**Quick reference:**
-- Write tests first (TDD non-negotiable)
-- Test through public API exclusively
-- Use factory functions for test data (no `let`/`beforeEach`)
-- Tests must document expected business behavior
-- No 1:1 mapping between test files and implementation files
+- Immutable data. Build new values; do not mutate arguments, fields, or shared state.
+- Pure functions by default. Push side effects to the edges.
+- No nested conditionals. Use early returns, guard clauses, or composition.
+- Prefer declarative transformations over manual loops where the language offers them.
+- Named options over long positional parameter lists.
+- Self-documenting names.
 
-For detailed testing patterns and examples, load the `testing` skill.
-For verifying test effectiveness through mutation analysis, load the `mutation-testing` skill.
+### Type systems
 
-## Python Guidelines
+Never escape the type system. No `any`, no unchecked casts or assertions, no `# type: ignore`,
+no bare `interface{}`, no `unsafe` reached for out of convenience. If a type is genuinely
+unknown, use the language's honest "unknown" and narrow it.
 
-**Core principle**: Always follow the [Zen of Python]
+Validate at trust boundaries — parse external input into a known shape once, then rely on types
+inside. Derive types from schemas rather than maintaining both by hand.
 
-### Code Style
+### Comments
 
-Follow Black library formatting
+A comment explains *why*: a constraint, an invariant, a bug being worked around.
 
-## C++ Guidelines
+Never reference planning artifacts in source code — no task numbers ("6.31"), no `design.md`,
+`proposal.md`, or `spec.md`. Those get renumbered and archived; the comment rots. A comment
+must make sense to someone who has never seen the plan. Commit messages and `tasks.md` are the
+right place for task references.
 
-**Core principle**: Modern C++ (C++17/20/23) with type safety, resource safety, and immutability, per the C++ Core Guidelines.
+## Languages
 
-For detailed C++ patterns and rationale, load the `cpp-coding-standards` skill.
+Load the skill matching the language you are working in before writing code in it.
 
-## TypeScript Guidelines
+When no skill exists for a language, every rule above still applies — express it in that
+language's idiom, follow the ecosystem's dominant formatter and style guide without being
+asked, and tell me the skill is missing so we can write one.
 
-**Core principle**: Strict mode always. Schema-first at trust boundaries, types for internal logic.
+## Working With Me
 
-**Quick reference:**
-- No `any` types - ever (use `unknown` if type truly unknown)
-- No type assertions without justification
-- Prefer `type` over `interface` for data structures
-- Reserve `interface` for behavior contracts only
-- Define schemas first, derive types from them (Zod/Standard Schema)
-- Use schemas at trust boundaries, plain types for internal logic
-
-For detailed TypeScript patterns and rationale, load the `typescript-strict` skill.
-
-### Code Style
-
-**Core principle**: Functional programming with immutable data. Self-documenting code.
-
-**Quick reference:**
-- No data mutation - immutable data structures only
-- Pure functions wherever possible
-- No nested if/else - use early returns or composition
-- Prefer options objects over positional parameters
-- Use array methods (`map`, `filter`, `reduce`) over loops
-
-For detailed patterns and examples, load the `functional` skill.
-
-#### Code Comments
-
-Never reference openspec artifacts (task numbers like "6.31", design.md, proposal.md, spec.md) in source code comments — those are planning documents, not part of the codebase, and rot as tasks get renumbered/archived. Comments should explain the WHY (a constraint, a bug, an invariant) in terms that make sense without the openspec change being open. This applies to source files and scripts alike; commit messages and tasks.md itself are the right place for task/design references.
-
-## Development Workflow
-
-**Core principle**: RED-GREEN-REFACTOR in small, known-good increments. TDD is the fundamental practice.
-
-**Quick reference:**
-- RED: Write failing test first (NO production code without failing test)
-- GREEN: Write MINIMUM code to pass test
-- REFACTOR: Assess improvement opportunities (only refactor if adds value)
-- **Wait for commit approval** before every commit
-- Each increment leaves codebase in working state
-- Capture learnings as they occur, merge at end
-
-For detailed TDD workflow, load the `tdd` skill.
-For refactoring methodology, load the `refactoring` skill.
-For significant work, load the `planning` skill for three-document model (PLAN.md, WIP.md, LEARNINGS.md).
-
-## Working with Claude
-
-**Core principle**: Think deeply, follow TDD strictly, capture learnings while context is fresh.
-
-**Quick reference:**
-- ALWAYS FOLLOW TDD - no production code without failing test
-- Assess refactoring after every green (but only if adds value)
-- Update CLAUDE.md when introducing meaningful changes
-- Ask "What do I wish I'd known at the start?" after significant changes
-- Document gotchas, patterns, decisions, edge cases while context is fresh
-
-For detailed TDD workflow, load the `tdd` skill.
-For refactoring methodology, load the `refactoring` skill.
-For detailed guidance on expectations and documentation, load the `expectations` skill.
+- Think before acting. Read the surrounding code and match its idiom.
+- Assess refactoring after every green.
+- Capture learnings while context is fresh — gotchas, decisions, edge cases. Ask "what do I
+  wish I'd known at the start?" after significant work, and propose updates to this file.
+- For significant work, load the `planning` skill.
 
 ## Browser Automation
 
-Prefer `agent-browser` for web automation. If it is not installed, fall back to other available tools (e.g. `WebFetch`, `curl`, or MCP browser tools). Always try `agent-browser` first.
+Use `agent-browser` when it is installed:
+`open <url>` → `snapshot -i` (returns refs like `@e1`) → `click @e1` / `fill @e2 "text"` →
+re-snapshot after the page changes. `agent-browser --help` for the rest.
 
-`agent-browser` core workflow:
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
-
-Run `agent-browser --help` for all commands.
-
-## Resources and References
-
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [Testing Library Principles](https://testing-library.com/docs/guiding-principles)
-- [Kent C. Dodds Testing JavaScript](https://testingjavascript.com/)
-- [Functional Programming in TypeScript](https://gcanti.github.io/fp-ts/)
-
-## Summary
-
-The key is to write clean, testable, functional code that evolves through small, safe increments. Every change should be driven by a test that describes the desired behavior, and the implementation should be the simplest thing that makes that test pass. When in doubt, favor simplicity and readability over cleverness.
-
-[Zen of Python]: https://peps.python.org/pep-0020/
-
-@RTK.md
+If it is not installed, say so once and fall back to `WebFetch`, `curl`, or an MCP browser tool.
