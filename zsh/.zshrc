@@ -84,15 +84,29 @@ claude-link() {
   done
 }
 
-claude-tlm() {
-  claude-link "$HOME/.claude-tlm"
-  printf '/color green\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-tlm" claude --name tlm "$@"
+# Launch claude against ~/.claude-<account> with its session color.
+# The session name defaults to <account>; override with -n/--name <name>.
+# Every other argument is passed through to claude.
+_claude-account() {
+  local account="$1" color="$2"
+  shift 2
+  local name="$account"
+  local -a args
+  while (( $# )); do
+    case "$1" in
+      -n|--name) name="$2"; shift 2 ;;
+      --name=*) name="${1#--name=}"; shift ;;
+      --) args+=("$@"); break ;;
+      *) args+=("$1"); shift ;;
+    esac
+  done
+  claude-link "$HOME/.claude-$account"
+  printf '/color %s\n' "$color" | CLAUDE_CONFIG_DIR="$HOME/.claude-$account" claude --name "$name" "${args[@]}"
 }
 
-claude-immervision() {
-  claude-link "$HOME/.claude-immervision"
-  printf '/color orange\n' | CLAUDE_CONFIG_DIR="$HOME/.claude-immervision" claude --name immervision "$@"
-}
+claude-tlm() { _claude-account tlm green "$@" }
+
+claude-immervision() { _claude-account immervision orange "$@" }
 
 claude-init() {
   local name="$1"
