@@ -102,3 +102,15 @@ Tools that aren't configured here but that I use daily, or that the dotfiles exp
 | [glow](https://github.com/charmbracelet/glow) | Rendering Markdown in the terminal |
 | [ImageMagick](https://imagemagick.org) | Image conversion (`magick`) |
 | htop | Process monitoring |
+
+### Apps
+
+| App | Use |
+|-----|-----|
+| [LibreWolf](https://librewolf.net) | Web browser (configured above) |
+| [CopyQ](https://hluk.github.io/CopyQ/) | Clipboard manager |
+| [Flameshot](https://flameshot.org) | Screenshots and annotation |
+| [Parsec](https://parsec.app) | Remote desktop |
+| [Obsidian](https://obsidian.md) | Notes |
+| [OBS Studio](https://obsproject.com) | Screen recording and streaming |
+| [Slack](https://slack.com) | Team chat |
