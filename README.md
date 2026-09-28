@@ -60,3 +60,45 @@ After this, `~/.config/nvim/init.lua` on your machine is a symlink to `nvim/.con
 | lazygit | `.config/lazygit/` |
 | Librewolf | `.librewolf/librewolf.overrides.cfg` |
 | Claude Code | `.claude/` (agents, skills, commands, settings) |
+| Calibre | `.config/calibre/` |
+
+## Tools I use
+
+Tools that aren't configured here but that I use daily, or that the dotfiles expect to be installed.
+
+### Shell prerequisites
+
+| Tool | Why |
+|------|-----|
+| [Homebrew](https://brew.sh) | Package manager; `.zshrc` loads `brew shellenv` |
+| [Oh My Zsh](https://ohmyz.sh) | Plugins: `git`, `jump`, `zsh-autosuggestions`, `zsh-fzf-history-search`, `zsh-syntax-highlighting` |
+| [Powerlevel10k](https://github.com/romkatv/powerlevel10k) | Prompt theme |
+| [fzf](https://github.com/junegunn/fzf) | Fuzzy finder; `.zshrc` loads its shell integration |
+| [bat](https://github.com/sharkdp/bat) | `cat` with syntax highlighting (aliased from `batcat`) |
+| xclip | Backs the `pbcopy` / `pbpaste` aliases |
+
+### Development
+
+| Tool | Use |
+|------|-----|
+| git | Mostly through the Oh My Zsh git aliases (`gst`, `gcmsg`, `gco`, `ga`, `gp`…) |
+| [Docker](https://www.docker.com) | Containers |
+| [dive](https://github.com/wagoodman/dive) | Inspecting Docker image layers |
+| make | Project task runner |
+| [pnpm](https://pnpm.io) / [nvm](https://github.com/nvm-sh/nvm) | Node.js packages and versions |
+| [uv](https://docs.astral.sh/uv/) | Python packages and environments |
+
+### Cloud and infrastructure
+
+| Tool | Use |
+|------|-----|
+| [AWS CLI](https://aws.amazon.com/cli/) | AWS operations |
+| [Terragrunt](https://terragrunt.gruntwork.io) / [Terraform](https://www.terraform.io) | Infrastructure as code (`tf` alias) |
+
+### Utilities
+
+| Tool | Use |
+|------|-----|
+| [glow](https://github.com/charmbracelet/glow) | Rendering Markdown in the terminal |
+| [ImageMagick](https://imagemagick.org) | Image conversion (`magick`) |
+| htop | Process monitoring |
