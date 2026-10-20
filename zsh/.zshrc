@@ -76,7 +76,7 @@ hcat() {
 }
 
 # Per-account Claude config dirs share these items from the central, versioned ~/.claude
-_claude_shared_items=(skills agents plugins CLAUDE.md)
+_claude_shared_items=(skills agents plugins CLAUDE.md settings.json)
 
 # Point ~/.claude-<dir>'s shared items at the central ~/.claude (idempotent).
 # An existing real file/dir is backed up rather than overwritten.
