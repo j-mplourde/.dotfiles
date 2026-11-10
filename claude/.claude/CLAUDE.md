@@ -16,8 +16,6 @@ Work proceeds in small increments, each leaving the codebase in a working state.
 - **GREEN** — write the minimum code that passes. Nothing more.
 - **REFACTOR** — assess. Refactor only when it adds value; "no change" is a valid outcome.
 
-Never commit without my approval. Ask, every time.
-
 ## Testing
 
 Test behavior, not implementation. Full coverage *through* business behavior, never by reaching
