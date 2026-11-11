@@ -56,6 +56,9 @@ export GIT_EDITOR=nvim
 # source fzf
 source <(fzf --zsh)
 
+# GitHub MCP token from keyring
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(secret-tool lookup service github-mcp)"
+
 # zsh-fzf-history-search
 ZSH_FZF_HISTORY_SEARCH_BIND='^r'
 
