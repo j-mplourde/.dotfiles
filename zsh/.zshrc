@@ -1,13 +1,3 @@
-# Start (or attach to) tmux for interactive terminals. Placed above the p10k
-# instant prompt so the exec'd shell doesn't render the prompt twice.
-if [[ -o interactive && -z "$TMUX" ]] && command -v tmux >/dev/null; then
-  if tmux has-session 2>/dev/null; then
-    exec tmux attach
-  else
-    exec tmux
-  fi
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # # Initialization code that may require console input (password prompts, [y/n]
 # # confirmations, etc.) must go above this block; everything else may go below.
