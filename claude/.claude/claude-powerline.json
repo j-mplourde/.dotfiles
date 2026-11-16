@@ -1,0 +1,26 @@
+{
+  "theme": "dark",
+  "display": {
+    "style": "powerline",
+    "charset": "unicode",
+    "lines": [
+      {
+        "segments": {
+          "directory": { "enabled": true, "style": "basename" },
+          "git": { "enabled": true },
+          "model": { "enabled": true },
+          "session": { "enabled": true, "type": "tokens", "costSource": "calculated" },
+          "today": { "enabled": true, "type": "cost" },
+          "context": {
+            "enabled": true,
+            "showPercentageOnly": false,
+            "displayStyle": "text",
+            "percentageMode": "used",
+            "autocompactBuffer": 33000
+          },
+          "agent": { "enabled": true, "showLabel": false }
+        }
+      }
+    ]
+  }
+}
