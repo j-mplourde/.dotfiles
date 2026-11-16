@@ -48,7 +48,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "npx -y @owloops/claude-powerline --style=powerline"
+    "command": "npx -y @owloops/claude-powerline"
   },
   "enabledPlugins": {
     "feature-dev@claude-code-plugins": true,

@@ -87,6 +87,7 @@ Tests use [bats](https://github.com/bats-core/bats-core) (`brew install bats-cor
 | Librewolf | `.librewolf/librewolf.overrides.cfg` |
 | Claude Code | `.claude/` (agents, skills, commands, settings) |
 | Calibre | `.config/calibre/` |
+| [claude-powerline](https://github.com/Owloops/claude-powerline) | `.claude/claude-powerline.json` (Claude Code status line; context shows percentage used) |
 
 ## Tools I use
 
