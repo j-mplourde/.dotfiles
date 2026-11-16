@@ -50,6 +50,32 @@ Say you want to track Neovim's config, which lives at `~/.config/nvim/init.lua` 
 
 After this, `~/.config/nvim/init.lua` on your machine is a symlink to `nvim/.config/nvim/init.lua` in the repo. Edit either one and the change is reflected in both.
 
+## Moving to a new laptop
+
+`system/` holds two scripts for carrying files and the list of installed tools to a new machine.
+
+**List installed tools** — writes one text file per package manager (dnf packages, enabled repositories, flatpaks, Homebrew, uv tools, global npm packages, Node.js version):
+
+```bash
+bash system/snapshot.sh    # writes to system/manifests/
+```
+
+**Back up files to a USB key** — archives `~/Documents/projects`, `~/orca/workspaces` and `~/.config/orca` (edit `BACKUP_PATHS` at the top of the script to change them) into `<usb-key>/laptop-backup/home.tar.zst`, and writes the tool list to `<usb-key>/laptop-backup/tools/`. Dependency folders (`node_modules`, `.venv`) and Orca's caches, logs and lock files are skipped. Nothing else on the key is touched; each run replaces the previous archive.
+
+```bash
+bash system/backup.sh /run/media/$USER/<usb-key>
+```
+
+A single archive keeps permissions, executable scripts and symlinks (such as git hooks), so any key format works, exFAT included.
+
+**Restore on the new laptop:**
+
+```bash
+tar --zstd -xf /run/media/$USER/<usb-key>/laptop-backup/home.tar.zst -C ~
+```
+
+Tests use [bats](https://github.com/bats-core/bats-core) (`brew install bats-core`): `bats tests/`.
+
 ## Tools configured
 
 | Tool | Config |
