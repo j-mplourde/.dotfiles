@@ -336,7 +336,9 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    -- The 0.1.x branch is unmaintained and calls vim.treesitter.language.ft_to_lang,
+    -- which Neovim 0.12 removed; it breaks the previewer.
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
